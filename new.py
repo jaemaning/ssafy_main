@@ -18,4 +18,6 @@ dusts = [59, 24, 102]
 
 a=sorted(dusts)
 
-print(a[::-1])
+print(a[::-1][1:]+a[::-1][:1])
+
+
