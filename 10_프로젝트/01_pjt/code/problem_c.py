@@ -1,4 +1,5 @@
 import json
+import problem_b
 from pprint import pprint
 
 
@@ -6,27 +7,12 @@ def movie_info(movies, genres):
 
     movies_list = []
 
-    for idx in range(len(movies)) :
+    # problem_b 에서 쓴 코드를 모듈화 하여 재사용
+    for movie in movies :
 
-        genres_ids = movies[idx].get("genre_ids")
-        genre_list = []
-
-        for genre_id in genres_ids:
-            for genre in genres:
-                if genre["id"] == genre_id:
-                    genre_list.append(genre["name"])
-
-        new_dict = {
-            "id": movies[idx].get("id"),
-            "title": movies[idx].get("title"),
-            "poster_path": movies[idx].get("poster_path"),
-            "vote_average": movies[idx].get("vote_average"),
-            "overview": movies[idx].get("overview"),
-            "genre_names": genre_list
-        }
+        new_dict = problem_b.movie_info(movie, genres)
 
         movies_list.append(new_dict)
-
     
     return movies_list
     # 여기에 코드를 작성합니다.  
