@@ -1,77 +1,48 @@
+from math import gcd
 import sys
+
 input = sys.stdin.readline
 
+n = int(input())
+number_list = []
 
-tc = int(input().strip())
+for i in range(n):
+    m = int(input())
+    number_list.append(m)
 
-for _ in range(tc):
+number_list.sort()
 
-    n = int(input().strip())
-    tp_dict = {}
+diff_list = []
+gcd_list = []
+result = []
 
-    for _ in range(n):
+if n == 2 :
+    target_number = number_list[1] - number_list[0]
 
-        name, tp = input().strip().split()
-        if not tp_dict.get(tp) :
-            tp_dict[tp] = 1
-        else:
-            tp_dict[tp] += 1
-
-    result = 1
-    for length in tp_dict.values():
-        result *= length+1
-
-    print(result-1)
+    for i in range(1,int(target_number**0.5)+1):
+        if target_number % i == 0:
+            result.append(i)
+            result.append(target_number//i)
     
-    # print(tplist)
+else:
+    for i in range(1,n):
+        diff_list.append(number_list[i] - number_list[i-1])
 
-# check_list = [False for _ in range(len(nlist))] 
-
-# def comb(arr,n):
-#     global result
-#     result = []
-
-#     def generate(choice):
-
-#         if len(choice) == n :
-#             result.append(choice[:])
-#             return result
-
-#         start = arr.index(choice[-1]) + 1 if choice else 0
-#         for i in range(start,len(arr)):
-#             choice.append(arr[i])
-#             generate(choice)
-#             choice.pop()
-
-#     generate([])
-
-#     return result
-
-# print(comb([1,1,3,4,5],3))
+    for i in range(1,n-1):
+        gcd_list.append(gcd(diff_list[i-1],diff_list[i]))
 
 
+    min_val = min(gcd_list)
 
-# def combination(arr, r):
-#     # 1.
-#     arr = sorted(arr)
+    for i in range(1,int(min_val**0.5)+1):
+        if min_val % i == 0 :
+            result.append(i)
+            result.append(min_val//i)
 
-#     # 2.
-#     def generate(chosen):
-#         if len(chosen) == r:
-#             print(chosen)
-#             return
+result = list(set(result))
+result.sort()
 
-#     	# 3.
-#         start = arr.index(chosen[-1]) + 1 if chosen else 0
-#         for nxt in range(start, len(arr)):
-#             chosen.append(arr[nxt])
-#             generate(chosen)
-#             chosen.pop()
-#     generate([])
-
-
-# combination('ABCDE', 2)
-# combination([1, 2, 3, 4, 5], 3)
-
+for num in result[1:]:
+    print(num,end=' ')
 
 
