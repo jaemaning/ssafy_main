@@ -1,48 +1,42 @@
-from math import gcd
 import sys
-
 input = sys.stdin.readline
 
-n = int(input())
-number_list = []
+def cal(N):
+    total = 0
+    avg = 0
+    avg_2 = 0
+    man = 0
+    cnt = 0
+    percent = []
 
-for i in range(n):
-    m = int(input())
-    number_list.append(m)
+    for i in range(N):
 
-number_list.sort()
+        T = input().split()
+        if int(T[0]) >= 1 and int(T[0]) <= 1000:  
+            man = T[0]
+            for i in range(1, len(T)):
+                if not(int(T[i]) >= 0 and int(T[i]) <= 100):
+                    return False
+                else:
+                    total += int(T[i])
+            
+            avg = total / int(man) 
 
-diff_list = []
-gcd_list = []
-result = []
+            for i in range(1, len(T)):
+                if avg < int(T[i]):
+                    cnt += 1
 
-if n == 2 :
-    target_number = number_list[1] - number_list[0]
+            avg_2 = cnt / int(man) * 100
+            percent.append(round(float(avg_2), 3))
 
-    for i in range(1,int(target_number**0.5)+1):
-        if target_number % i == 0:
-            result.append(i)
-            result.append(target_number//i)
-    
-else:
-    for i in range(1,n):
-        diff_list.append(number_list[i] - number_list[i-1])
+        total = 0
+        avg = 0
+        man = 0
+        cnt = 0
+        avg_2 = 0
 
-    for i in range(1,n-1):
-        gcd_list.append(gcd(diff_list[i-1],diff_list[i]))
+    for i in range(N):
+        print(str("%.3f" %percent[i]) + "%")
+        # print(f'{percent[i]}%')
 
-
-    min_val = min(gcd_list)
-
-    for i in range(1,int(min_val**0.5)+1):
-        if min_val % i == 0 :
-            result.append(i)
-            result.append(min_val//i)
-
-result = list(set(result))
-result.sort()
-
-for num in result[1:]:
-    print(num,end=' ')
-
-
+cal(N = int(input()))
